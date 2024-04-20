@@ -4,7 +4,7 @@ from bokeh.plotting import figure, output_file, save
 from bokeh.palettes import Turbo256
 
 # Cargar los datos desde el archivo CSV
-df = pd.read_csv("co2_pcap_cons.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/MAYnerAC/Bokeh_EjercicioEjemplo/main/ejercicioBokeh/co2_pcap_cons.csv")
 
 # Eliminar filas con valores NaN
 df = df.dropna()
@@ -42,5 +42,5 @@ p.legend.click_policy = "hide"
 p.sizing_mode = "stretch_width"
 
 # Guardar la visualización en un archivo HTML
-output_file("emisiones_CO2_per_capita.html")
+output_file("emisiones_CO2_per_capita_ejercicioBokeh.html")
 save(p)
