@@ -1,9 +1,16 @@
+import streamlit as st
 import pandas as pd
 import random
-from bokeh.plotting import figure, output_file, save
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource
 from bokeh.palettes import Turbo256
+from bokeh.embed import file_html
+from bokeh.resources import CDN
 
-# Cargar los datos desde el archivo CSV
+
+st.title("Ejercicio Visualización de Emisiones de CO2 per Cápita por País")
+
+# Cargar los datos desde el archivo CSV en GitHub
 df = pd.read_csv("https://raw.githubusercontent.com/MAYnerAC/Bokeh_EjercicioEjemplo/main/ejercicioBokeh/co2_pcap_cons.csv")
 
 # Eliminar filas con valores NaN
@@ -41,6 +48,9 @@ p.legend.location = "top_left"
 p.legend.click_policy = "hide"
 p.sizing_mode = "stretch_width"
 
-# Guardar la visualización en un archivo HTML
-output_file("emisiones_CO2_per_capita_ejercicioBokeh.html")
-save(p)
+# Renderizar la visualización en Streamlit
+st.bokeh_chart(p, use_container_width=True)
+
+# Descargar el archivo HTML
+html = file_html(p, CDN, "Emisiones de CO2 per cápita por país (1800-2023)")
+st.markdown(html, unsafe_allow_html=True)
